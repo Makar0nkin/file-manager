@@ -3,6 +3,7 @@ import {cd, ls, up} from "../operations/navigation.js";
 import {currentPath} from "../index.js";
 import {add, cat, rn, cp, mv, rm} from "../operations/files.js";
 import {osController} from "../operations/os.js";
+import {compress, decompress} from "../operations/zip.js";
 
 
 export const controller = async (args) => {
@@ -28,8 +29,14 @@ export const controller = async (args) => {
         await mv(args[1], args[2])
     } else if (args[0] === 'rm') {
         await rm(args[1])
+        // OS
     } else if (args[0] === 'os') {
         await osController(args[1])
+        // Zip
+    } else if (args[0] === 'compress') {
+        compress(args[1], args[2])
+    } else if (args[0] === 'decompress') {
+        decompress(args[1], args[2])
     }
     else {
         console.log('Invalid input')
