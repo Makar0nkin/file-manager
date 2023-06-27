@@ -16,14 +16,14 @@ let currentPath = os.homedir().split(path.sep)
 console.log(`Welcome to the File Manager, ${Username}!`)
 console.log(`You are currently in ${path.join(...currentPath)}`)
 
-process.stdin.on('data', (chunk) => {
+process.stdin.on('data', async (chunk) => {
     let command = chunk.toString()
     let args = command
         .replace(/[\n\r]/, '')
         .split(/\s+/)
         .filter(el => el !== '')
-    controller(args)
-    console.log(`You are currently in ${path.join(...currentPath)}`)
+    await controller(args)
+    process.stdout.write(`You are currently in ${path.join(...currentPath)}\n`)
 })
 
 process.on('SIGINT', exitManager);

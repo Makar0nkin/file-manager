@@ -9,8 +9,8 @@ export const cd = (destiny) => {
     else currentPath.push(destiny)
 }
 
-export const ls = () => {
-    let files = fs.readdirSync(path.join(...currentPath))
+export const ls = async () => {
+    let files = await fs.promises.readdir(path.join(...currentPath))
     let info = []
     for (const file of files) {
         let fileStat = fs.statSync(path.join(...currentPath, file))
