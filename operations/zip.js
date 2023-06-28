@@ -1,8 +1,6 @@
 import fs from 'node:fs'
 import zlib from "node:zlib"
-import { pipeline } from 'stream'
-import {getAbsolutePath, getRelativePath} from "../utils/path.js";
-import path from "node:path";
+import {getAbsolutePath} from "../utils/path.js";
 
 export const compress = (filePath, destiny) => {
     console.log(getAbsolutePath(filePath), getAbsolutePath(destiny))
@@ -13,7 +11,6 @@ export const compress = (filePath, destiny) => {
 }
 
 export const decompress = (filePath, destiny) => {
-    console.log(getAbsolutePath(filePath), getAbsolutePath(destiny))
     fs.createReadStream(getAbsolutePath(filePath))
         .pipe(zlib.createBrotliDecompress())
         .pipe(fs.createWriteStream(getAbsolutePath(destiny)))
