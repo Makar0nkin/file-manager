@@ -24,6 +24,9 @@ export const osController = async (arg) => {
             case 'architecture':
                 console.log(`Node CPU architecture: ${os.arch()}`)
                 break
+            default:
+                console.log('Invalid input')
+                break
         }
     }
 }

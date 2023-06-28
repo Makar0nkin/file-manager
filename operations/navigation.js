@@ -3,10 +3,17 @@ import path from "node:path";
 import fs from "node:fs";
 
 export const up = () => { currentPath.pop() }
-export const cd = (destiny) => {
+export const cd = async (destiny) => {
     if (path.isAbsolute(destiny))
         currentPath = destiny.split(path.sep)
-    else currentPath.push(destiny)
+    else {
+        await fs.promises.access(path.join(...currentPath, destiny))
+        await fs.promises.stat(path.join(...currentPath, destiny))
+            .then((stats) => {
+                if (stats.isDirectory()) currentPath.push(destiny)
+                else throw Error('Error: You can`t access file!')
+            })
+    }
 }
 
 export const ls = async () => {

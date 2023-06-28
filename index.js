@@ -22,7 +22,12 @@ process.stdin.on('data', async (chunk) => {
         .replace(/[\n\r]/, '')
         .split(/\s+/)
         .filter(el => el !== '')
-    await controller(args)
+    try{
+        await controller(args)
+    }
+    catch (e){
+        process.stdout.write('Operation failed\n')
+    }
     process.stdout.write(`You are currently in ${path.join(...currentPath)}\n`)
 })
 
